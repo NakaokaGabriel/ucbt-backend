@@ -51,10 +51,10 @@ class UserController {
     });
   }
 
-  async index(req, res) {
-    const user = await User.findAll();
+  async update(req, res) {
+    console.log(req.userId);
 
-    return res.json(user);
+    return res.json({ ok: true });
   }
 }
 
