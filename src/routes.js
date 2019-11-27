@@ -5,6 +5,7 @@ import multerConfig from './config/multer';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
+import CategoryController from './app/controllers/CategoryController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -18,5 +19,7 @@ routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
+
+routes.get('/category', CategoryController.index);
 
 export default routes;
