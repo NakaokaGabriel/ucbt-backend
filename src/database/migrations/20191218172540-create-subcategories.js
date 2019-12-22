@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('subcategories', {
+    return queryInterface.createTable('sub_categories', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -19,8 +19,8 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
         references: { model: 'users', key: 'id' },
-        onUpdate: 'SET NULL',
-        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
       },
       name: {
         type: Sequelize.STRING,
@@ -46,6 +46,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('subcategories');
+    return queryInterface.dropTable('sub_categories');
   },
 };

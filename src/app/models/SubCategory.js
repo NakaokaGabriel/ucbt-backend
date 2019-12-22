@@ -19,8 +19,11 @@ class SubCategory extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Category, { foreignKey: 'id', as: 'categories' });
-    this.belongsTo(models.User, { foreignKey: 'id', as: 'user' });
+    this.belongsTo(models.Category, {
+      foreignKey: 'category_id',
+      as: 'category',
+    });
+    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
   }
 }
 
