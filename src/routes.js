@@ -23,6 +23,7 @@ routes.put('/users', UserController.update);
 
 routes.get('/category', CategoryController.index);
 
+routes.get('/subcategories', SubCategoriesController.index);
 routes.post('/subcategories', SubCategoriesController.store);
 
 export default routes;

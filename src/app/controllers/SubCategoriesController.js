@@ -4,12 +4,34 @@ import User from '../models/User';
 import Category from '../models/Category';
 
 class SubCategoriesController {
+  async index(req, res) {
+    const { category } = req.body;
+
+    const subcategory = await SubCategory.findAll({
+      where: {
+        user_id: req.userId,
+        category_id: category,
+      },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email', 'money'],
+        },
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
+        },
+      ],
+    });
+
+    return res.json(subcategory);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       category: Yup.number()
-        .integer()
-        .required(),
-      user: Yup.number()
         .integer()
         .required(),
       name: Yup.string().required(),
@@ -23,11 +45,11 @@ class SubCategoriesController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { category, user, name: bodyName, price, priority } = req.body;
+    const { category, name: bodyName, price, priority } = req.body;
 
     const checkUser = await SubCategory.findOne({
       where: {
-        user_id: user,
+        user_id: req.userId,
       },
     });
 
@@ -37,7 +59,7 @@ class SubCategoriesController {
       }
     }
 
-    const userExist = await User.findByPk(user);
+    const userExist = await User.findByPk(req.userId);
 
     if (!userExist) {
       return res.status(400).json({ error: 'Users does not exist' });
@@ -51,7 +73,7 @@ class SubCategoriesController {
 
     const subcategory = await SubCategory.create({
       category_id: category,
-      user_id: user,
+      user_id: req.userId,
       name: bodyName,
       price,
       priority,
