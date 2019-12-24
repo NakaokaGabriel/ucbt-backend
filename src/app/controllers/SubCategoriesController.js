@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+
 import SubCategory from '../models/SubCategory';
 import User from '../models/User';
 import Category from '../models/Category';
@@ -12,11 +13,13 @@ class SubCategoriesController {
         user_id: req.userId,
         category_id: category,
       },
+      attributes: ['name', 'price', 'priority'],
+      order: [['priority', 'DESC']],
       include: [
         {
           model: User,
           as: 'user',
-          attributes: ['id', 'name', 'email', 'money'],
+          attributes: ['name', 'email'],
         },
         {
           model: Category,
@@ -25,6 +28,10 @@ class SubCategoriesController {
         },
       ],
     });
+
+    if (subcategory <= 0) {
+      return res.status(400).json({ error: 'Not found categories' });
+    }
 
     return res.json(subcategory);
   }
