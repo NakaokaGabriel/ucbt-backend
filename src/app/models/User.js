@@ -10,7 +10,7 @@ class User extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `http://localhost:3333/files/${this.avatar_path}`;
+            return `${process.env.APP_URL}/files/${this.avatar_path}`;
           },
         },
         name: Sequelize.STRING,
