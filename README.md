@@ -12,3 +12,5 @@ The ucbt will be three global process
 - All users request
 - Payments options
 - Send emails
+
+Main technologies used: [Express](https://github.com/expressjs/express), [Sequelize](https://github.com/sequelize/sequelize), [Multer](https://github.com/expressjs/multer), [Json Web Token](https://github.com/auth0/node-jsonwebtoken)
