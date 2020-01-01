@@ -1,9 +1,11 @@
+require('dotenv/config');
+
 module.exports = {
   dialect: 'postgres',
-  host: 'localhost',
-  username: 'postgres',
-  password: 'docker',
-  database: 'ucbt',
+  host: process.env.POSTGRES_HOST,
+  username: process.env.POSTGRES_USERNAME,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DATABASE,
   define: {
     timestamps: true,
     underscored: true,
