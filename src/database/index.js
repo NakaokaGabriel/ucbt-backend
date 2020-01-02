@@ -3,10 +3,11 @@ import Sequelize from 'sequelize';
 import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
+import File from '../app/models/File';
 import Category from '../app/models/Category';
 import SubCategory from '../app/models/SubCategory';
 
-const models = [User, Category, SubCategory];
+const models = [User, File, Category, SubCategory];
 
 class Database {
   constructor() {
