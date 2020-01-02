@@ -7,15 +7,6 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      avatar_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      avatar_path: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -32,6 +23,7 @@ module.exports = {
       money: {
         type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
+        defaultValue: 0.0,
       },
       created_at: {
         type: Sequelize.DATE,
