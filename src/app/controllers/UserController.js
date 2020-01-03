@@ -27,7 +27,9 @@ class UserController {
       confirmPassword: Yup.string().when('password', (password, field) =>
         password ? field.required().oneOf([Yup.ref('password')]) : field
       ),
-      money: Yup.number().required(),
+      avatar: Yup.number()
+        .integer()
+        .required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -42,22 +44,19 @@ class UserController {
       return res.status(400).json({ error: 'Email already exist' });
     }
 
-    const { originalname: avatar_name, filename: avatar_path } = req.file;
-    const { name, password, money } = req.body;
+    const { name, password, avatar } = req.body;
 
     await User.create({
-      avatar_name,
-      avatar_path,
       name,
       email,
       password,
-      money,
+      avatar_id: avatar,
     });
 
     return res.json({
       name,
       email,
-      money,
+      avatar,
     });
   }
 
