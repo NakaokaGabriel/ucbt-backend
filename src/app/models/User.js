@@ -5,14 +5,6 @@ class User extends Model {
   static init(sequelize) {
     super.init(
       {
-        avatar_name: Sequelize.STRING,
-        avatar_path: Sequelize.STRING,
-        url: {
-          type: Sequelize.VIRTUAL,
-          get() {
-            return `${process.env.APP_URL}/files/${this.avatar_path}`;
-          },
-        },
         name: Sequelize.STRING,
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
@@ -31,6 +23,10 @@ class User extends Model {
     });
 
     return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
   }
 
   checkPassword(password) {
