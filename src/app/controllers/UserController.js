@@ -18,6 +18,7 @@ class UserController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
+      username: Yup.string().required(),
       email: Yup.string()
         .email()
         .required(),
@@ -36,18 +37,25 @@ class UserController {
       return res.status(400).json({ error: 'Validation failed' });
     }
 
-    const { email } = req.body;
+    const { name, username, email, password, avatar } = req.body;
 
-    const checkEmail = await User.findOne({ where: { email } });
+    const emailExist = await User.findOne({ where: { email } });
 
-    if (checkEmail) {
+    if (emailExist) {
       return res.status(400).json({ error: 'Email already exist' });
     }
 
-    const { name, password, avatar } = req.body;
+    const usernameExist = await User.findOne({
+      where: { username },
+    });
+
+    if (usernameExist) {
+      return res.status(400).json({ error: 'Username already exist' });
+    }
 
     await User.create({
       name,
+      username,
       email,
       password,
       avatar_id: avatar,
@@ -55,6 +63,7 @@ class UserController {
 
     return res.json({
       name,
+      username,
       email,
       avatar,
     });
