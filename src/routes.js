@@ -24,6 +24,7 @@ routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
 
+routes.post('/category', CategoryController.store);
 routes.get('/category', CategoryController.index);
 
 routes.get('/subcategories', SubCategoriesController.index);
