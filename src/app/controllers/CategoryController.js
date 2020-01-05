@@ -17,6 +17,16 @@ class CategoryController {
 
     return res.json(category);
   }
+
+  async update(req, res) {
+    const { money } = req.body;
+
+    const category = await Category.update({
+      money,
+    });
+
+    return res.json(category);
+  }
 }
 
 export default new CategoryController();
