@@ -1,13 +1,8 @@
 /*
 / Todo users /
 
-1° - Quando editar o email de usuário pedir alguma forma de responsabilizar que é ele mesmo
--- Formas: Pedindo uma confirmação no email, ou pedindo a senha ou o numero de celular para confirmação
-
 2° - Fazer o delete de usuário
 -- Formas: Pedindo a confirmação para uma outra página e pedindo uma confimação de senha
-
-3° (Mais facil) - Obrigatorio quando ele fazer o cadastro colocar uma imagem
 
 */
 
