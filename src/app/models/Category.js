@@ -5,8 +5,6 @@ class Category extends Model {
     super.init(
       {
         name: Sequelize.STRING,
-        color: Sequelize.STRING,
-        priority: Sequelize.INTEGER,
       },
       {
         sequelize,

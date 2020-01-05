@@ -11,14 +11,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      color: {
-        type: Sequelize.STRING,
+      priority: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      money: {
-        type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
-        defaultValue: 0.0,
+        defaultValue: 0,
       },
       created_at: {
         type: Sequelize.DATE,

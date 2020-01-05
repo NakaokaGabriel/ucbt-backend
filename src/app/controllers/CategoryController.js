@@ -19,13 +19,17 @@ class CategoryController {
   }
 
   async update(req, res) {
+    const { category_id } = req.params;
+
+    const category = await Category.findByPk(category_id);
+
     const { money } = req.body;
 
-    const category = await Category.update({
+    await category.update({
       money,
     });
 
-    return res.json(category);
+    return res.json({ money });
   }
 }
 
