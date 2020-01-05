@@ -26,6 +26,7 @@ routes.put('/users', UserController.update);
 
 routes.post('/category', CategoryController.store);
 routes.get('/category', CategoryController.index);
+routes.put('/category/:category_id', CategoryController.update);
 
 routes.get('/subcategories', SubCategoriesController.index);
 routes.post('/subcategories', SubCategoriesController.store);
