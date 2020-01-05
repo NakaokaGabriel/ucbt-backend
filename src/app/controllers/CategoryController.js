@@ -6,6 +6,17 @@ class CategoryController {
 
     return res.json(category);
   }
+
+  async store(req, res) {
+    const { name, color } = req.body;
+
+    const category = await Category.create({
+      name,
+      color,
+    });
+
+    return res.json(category);
+  }
 }
 
 export default new CategoryController();
