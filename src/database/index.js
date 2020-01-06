@@ -5,9 +5,10 @@ import databaseConfig from '../config/database';
 import User from '../app/models/User';
 import File from '../app/models/File';
 import Category from '../app/models/Category';
+import UserCategory from '../app/models/UserCategory';
 import SubCategory from '../app/models/SubCategory';
 
-const models = [User, File, Category, SubCategory];
+const models = [User, File, Category, UserCategory, SubCategory];
 
 class Database {
   constructor() {
