@@ -78,6 +78,17 @@ class SubCategoriesController {
       return res.status(400).json({ error: 'Category does not exist' });
     }
 
+    const goalsExist = await SubCategory.findAll({
+      where: {
+        user_id: req.userId,
+        category_id: 4,
+      },
+    });
+
+    if (goalsExist >= 3) {
+      return res.status(400).json({ error: 'You can 2 goals this month' });
+    }
+
     const subcategory = await SubCategory.create({
       category_id: category,
       user_id: req.userId,
