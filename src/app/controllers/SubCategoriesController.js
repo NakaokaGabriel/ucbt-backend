@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { isBefore, parseISO } from 'date-fns';
 
 import SubCategory from '../models/SubCategory';
 import User from '../models/User';
@@ -13,7 +14,14 @@ class SubCategoriesController {
         user_id: req.userId,
         category_id: category,
       },
-      attributes: ['name', 'price', 'priority'],
+      attributes: [
+        'name',
+        'price',
+        'priority',
+        'start_date',
+        'end_date',
+        'date_active',
+      ],
       order: [['priority', 'DESC']],
       include: [
         {
@@ -46,13 +54,22 @@ class SubCategoriesController {
       priority: Yup.number()
         .integer()
         .required(),
+      start_date: Yup.date().required(),
+      end_date: Yup.date().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { category, name: bodyName, price, priority } = req.body;
+    const {
+      category,
+      name: bodyName,
+      price,
+      priority,
+      start_date,
+      end_date,
+    } = req.body;
 
     const checkUser = await SubCategory.findOne({
       where: {
@@ -89,12 +106,28 @@ class SubCategoriesController {
       return res.status(400).json({ error: 'You can 2 goals this month' });
     }
 
+    if (category === 4) {
+      const startDateFormat = parseISO(start_date);
+      const endDateFormat = parseISO(end_date);
+
+      if (
+        isBefore(endDateFormat, startDateFormat) ||
+        isBefore(endDateFormat, new Date())
+      ) {
+        return res.status(400).json({
+          error: 'End date must be greater than start date or current date',
+        });
+      }
+    }
+
     const subcategory = await SubCategory.create({
       category_id: category,
       user_id: req.userId,
       name: bodyName,
       price,
       priority,
+      start_date,
+      end_date,
     });
 
     return res.json(subcategory);
